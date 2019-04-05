@@ -1,0 +1,58 @@
+.footer-bg {
+    background-image: url(/../assets/images/spiration-dark.png);
+    padding: 40px 0px;
+}
+
+.footer-list {
+    width: 100%;
+    padding-left: 0px;
+    margin-left: 0px;
+}
+
+.footer-content h4 {
+    color: gray;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.footer-list li {
+    display: block;
+}
+
+.footer-list li a {
+    color: #fff;
+    font-size: 16px;
+}
+
+.footer-content a img {
+    width: 200px;
+    margin-bottom: 15px;
+}
+
+.copyright {
+    text-align: center;
+    color: #fff;
+}
+
+.border-top {
+    padding-top: 40px;
+    border-top: 1px solid #3b3b3b;
+    margin-top: 20px;
+}
+
+.social-list {
+    text-align: right;
+}
+
+.social-list a {
+    margin-left: 30px;
+    display: inline-block;
+    -webkit-transform: scaleX(1);
+    -ms-transform: scaleX(1);
+    transform: scaleX(1);
+    will-change: transform;
+    transition: -webkit-transform .5s cubic-bezier(.215, .61, .355, 1);
+    transition: transform .5s cubic-bezier(.215, .61, .355, 1);
+    transition: transform .5s cubic-bezier(.215, .61, .355, 1), -webkit-transform .5s cubic-bezier(.215, .61, .355, 1);
+}

@@ -1,0 +1,82 @@
+<h3>
+  Add Product
+</h3>
+<form [formGroup]="addProductForm" (ngSubmit)="adproductSubmit()" encrypt="multipart/form-data">
+    <div class="form-group">
+        <label for="exampleInputEmail1">Product Name</label>
+        <input formControlName="p_name" type="text" class="form-control" aria-describedby="emailHelp" placeholder="#Galaxy Note 10" required>
+        <div class="alert alert-danger" *ngIf="addProductForm.controls['p_name'].touched && !addProductForm.controls['p_name'].valid">
+            <span *ngIf="addProductForm.controls['p_name'].hasError('required')">
+                Product Name is required
+            </span>
+            <span *ngIf="addProductForm.controls['p_name'].hasError('minlength')">
+                Product Name length is minimum 5
+            </span>
+            <span *ngIf="addProductForm.controls['p_name'].hasError('maxlength')">
+                Product Name length is maximum 50
+            </span>                                  
+        </div>        
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Product Description</label>
+        <input formControlName="p_description" type="text" class="form-control" aria-describedby="emailHelp" placeholder="#Galaxy Note 10 Description" required>
+        <div class="alert alert-danger" *ngIf="addProductForm.controls['p_description'].touched && !addProductForm.controls['p_description'].valid">
+            <span *ngIf="addProductForm.controls['p_description'].hasError('required')">
+                Product Name is required
+            </span>
+            <span *ngIf="addProductForm.controls['p_description'].hasError('minlength')">
+                Product Name length is minimum 15
+            </span>
+            <span *ngIf="addProductForm.controls['p_description'].hasError('maxlength')">
+                Product Name length is maximum 100
+            </span>                                
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Product Amount</label>
+        <input formControlName="p_amount" type="text" class="form-control" aria-describedby="emailHelp" placeholder="#1010$" required>
+        <div class="alert alert-danger" *ngIf="addProductForm.controls['p_amount'].touched && !addProductForm.controls['p_amount'].valid">
+            <span *ngIf="addProductForm.controls['p_amount'].hasError('required')">
+                Product Amount is required
+            </span>  
+            <span *ngIf="addProductForm.controls['p_amount'].hasError('invalidNumber')">
+                Please enter the valid amount
+            </span>
+            <span *ngIf="addProductForm.controls['p_amount'].hasError('numberValue')">
+                Please enter the amount greater then 0
+            </span>                                             
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Product Category</label>
+        <select formControlName ="p_category">
+            <option value="">Select</option>
+            <option *ngFor="let category of masterProductCategories" [ngValue]="category._id">
+                {{category.name}}
+            </option>
+        </select>
+        <div class="alert alert-danger" *ngIf="addProductForm.controls['p_category'].touched && !addProductForm.controls['p_category'].valid">
+            <span *ngIf="addProductForm.controls['p_category'].hasError('required')">
+                Please select Product Category
+            </span>                                            
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Upload Image</label>       
+        <input formControlName="fileUpload" type='file' (change)="onSelectFile($event)" #fileInput id="fileInput" >
+        <div class="alert alert-danger" *ngIf="image_displayError">
+            <span>
+                <small style="color:red">{{imageErrorMessage}}</small>
+            </span>
+        </div>
+        <div *ngIf="imageViewAfterUpload">
+            <span>
+                <img [src]="url">
+            </span>
+        </div>
+    </div>
+    <input type="hidden" formControlName="user_id">
+    <div>
+        <button [disabled]='addProductForm.invalid' type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Add Product</button>
+    </div>
+</form>

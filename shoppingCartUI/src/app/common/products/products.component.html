@@ -1,0 +1,43 @@
+<div class="container">
+    <h2>All available Products</h2>
+    <p>Please add products into Cart:-</p>       
+    <table class="table">
+        <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Product Details</th>
+              <th>Product Image</th>
+              <th>Price</th>
+              <th>Add to Cart</th>              
+            </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let productInfo of products; let i=index;">  
+                <ng-container *ngIf="productInfo.categoryData.length > 0">                                                              
+                  <td>{{i + 1}}</td>
+                  <td>
+                      <p>{{productInfo.categoryData[0].name}}</p>
+                      <p>{{productInfo.name}}</p>
+                      <span>{{productInfo.description}}</span>
+                  </td>
+                  <td>
+                    <div *ngIf="productInfo.productImage != '' && productInfo.productImage != undefined;then ifcontent else elsecontent"></div>    
+                    <ng-template #ifcontent>
+                        <img style="width: 20%" src="http://localhost:3000/images/upload_images/{{productInfo.productImage}}">
+                    </ng-template>
+                    <ng-template #elsecontent>
+                        <img style="width: 20%" src="assets/images/product.jpg">
+                    </ng-template>   
+                  </td>
+                  <td>{{productInfo.ratesData[0].amount}}</td>
+                  <td>
+                      <button (click)="addToCart(productInfo)">Add to Cart</button>
+                  </td>
+                </ng-container>                          
+              </tr>
+          </tbody> 
+    </table>
+</div>
+<div *ngIf="showItemCounterPopup">
+    <app-addproducttocart [passChildProductInfo]= passParentProductInfo></app-addproducttocart>
+</div>

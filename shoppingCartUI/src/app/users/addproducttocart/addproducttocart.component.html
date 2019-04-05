@@ -1,0 +1,33 @@
+  <div>
+    <b>Category Name:</b>
+    <p>{{passChildProductInfo.categoryData[0].name}}</p> 
+  </div>
+  <div>
+    <b>Product Name:</b>
+    <p>{{passChildProductInfo.name}}</p> 
+  </div>
+  <div>
+    <b>Amount:</b>
+    <p>{{passChildProductInfo.ratesData[0].amount}}</p> 
+  </div>
+  <div>
+    <b>Description:</b>
+    <p>{{passChildProductInfo.description}}</p> 
+  </div>
+  <div> 
+    <form #flowWithProduct="ngForm">
+        <div class="signup-fields">
+            <div class="form-group">
+                <input type="text" required name="noOfItem" [ngModel]="noOfItem" class="form-control" placeholder="Enter the Number of Item">
+                <div *ngIf="noOfItem.errors?.required && noOfItem.touched" class="error">
+                  No of Item is required
+                </div>
+            </div>
+            <div>
+                <button [disabled]="flowWithProduct.invalid" (click)="onAddToCart(flowWithProduct)" type="submit">Save To Cart</button>
+                <button [disabled]="flowWithProduct.invalid" (click)="checkout(flowWithProduct)" type="submit">Checkout</button>
+            </div>
+        </div>
+        <input type="hidden" name="toBeAddProductId" [ngModel]="toBeAddProductId">         
+    </form>    
+  </div>

@@ -1,0 +1,131 @@
+<header>
+    <div class="container">
+        <nav class="navbar navbar-expand-md">
+            <a class="navbar-brand" routerLink="/"><img src="assets/images/logo.jpg" alt="logo" /></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="cartbtn cartbtnmobile">
+                <i class="icon"><img src="assets/svg/cart.svg" alt="" /></i>
+                <span class="cart-item-number">02</span>
+                <div class="cart-item-list">
+                    <div class="cart-item-list-inner">
+                        <ol id="cart-sidebar" class="mini-products-list">
+                            <li class="item last odd clearfix">
+                                <a href="" class="product-image">
+                                    <img src="" /></a>
+                                <div class="product-details">
+                                    <a href=""
+                                        onclick="return confirm('Are you sure you would like to remove this item from the shopping cart?');"
+                                        class="btn-remove">
+                                        <i class="fa fa-times-circle"></i>
+                                    </a>
+                                    <a href="" title="Edit item" class="btn-edit">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <p class="product-name">
+                                        <a href="#">Bangla Foods</a></p>
+                                    <strong>1</strong> x<span class="price">$624.00</span>
+                                </div>
+                            </li>
+                        </ol>
+                        <div class="actions">
+                            <a class="cart-link button">
+                                go to Cart </a>
+                            <a [routerLink]="['/checkout']" class="button"><span><span>Checkout</span></span></a>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="" mr-auto></div>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a headerview routerLinkActive= "active" [routerLinkActiveOptions]="{exact:true}" routerLink="/" class="nav-link" href="javascript:void(0)">Home</a>
+                    </li>
+                    <!-- <li *ngIf="checkIsUserLoggedIn()" class="nav-item">
+                        <a headerview routerLinkActive= "active" [routerLinkActiveOptions]="{exact:true}" (click)="logout()" class="nav-link" href="javascript:void(0)">Logout</a>
+                    </li> -->
+                    <li *ngIf="!checkIsUserLoggedIn()" class="nav-item" >
+                        <a class="nav-link" href="#">Offer</a>
+                    </li>
+                    <li *ngIf="!checkIsUserLoggedIn()" class="nav-item" >
+                        <a class="nav-link" href="#">Help</a>
+                    </li>
+                    <li *ngIf="!checkIsUserLoggedIn()" class="nav-item" >
+                        <a class="nav-link" href="#">Career</a>
+                    </li>
+                    <li *ngIf="!checkIsUserLoggedIn()" class="nav-item" >
+                        <a class="nav-link" href="#">About Us</a>
+                    </li>
+                    <li *ngIf="!checkIsUserLoggedIn()" class="nav-item" >
+                        <a class="nav-link" href="#">Contact Us</a>
+                    </li>
+                    <li *ngIf="!checkIsUserLoggedIn()" class="nav-item">
+                        <a headerview routerLinkActive= "active" [routerLinkActiveOptions]="{exact:true}" routerLink="login" class="nav-link" href="javascript:void(0)">Login</a>
+                    </li>
+                    <li *ngIf="!checkIsUserLoggedIn()" class="nav-item">
+                        <a headerview routerLinkActive= "active" [routerLinkActiveOptions]="{exact:true}" routerLink="signup" class="nav-link" href="javascript:void(0)">Register</a>
+                    </li>
+                    <li *ngIf="checkIsUserLoggedIn()" class="nav-item">
+                        <a headerview routerLinkActive= "active" [routerLinkActiveOptions]="{exact:true}" routerLink="paid" class="nav-link" href="javascript:void(0)">PaidProducts</a>
+                    </li>
+                    <li *ngIf="checkIsUserLoggedIn()" class="nav-item">
+                        <a headerview routerLinkActive= "active" [routerLinkActiveOptions]="{exact:true}" routerLink="karthistory" class="nav-link" href="javascript:void(0)">Cart</a>
+                    </li>
+                    <li *ngIf="checkIsUserLoggedIn()" class="nav-item">
+                            <a headerview routerLinkActive= "active" [routerLinkActiveOptions]="{exact:true}" routerLink="history" class="nav-link" href="javascript:void(0)">History</a>                        
+                    </li>
+                    <li *ngIf="checkIsUserLoggedIn()" class="nav-item">
+                            <a headerview routerLinkActive= "active" [routerLinkActiveOptions]="{exact:true}" routerLink="products" class="nav-link" href="javascript:void(0)">Products</a>                        
+                    </li>
+                    <li *ngIf="checkIsUserLoggedIn()" class="nav-item">
+                            <a headerview routerLinkActive= "active" [routerLinkActiveOptions]="{exact:true}" routerLink="admin/addproduct" class="nav-link" href="javascript:void(0)">Add Products</a>                        
+                    </li>
+                    <!-- <li *ngIf="checkIsUserLoggedIn()" class="nav-item">
+                        <a routerLinkActive= "active" [routerLinkActiveOptions]="{exact:true}" routerLink="profile" class="nav-link" href="javascript:void(0)" headerview>Profile</a>
+                    </li> -->
+                    <!-- <li>
+                        <a class="btn btn-outline-orange">Register Now</a>
+                    </li> -->
+                    <li *ngIf="checkIsUserLoggedIn()">
+                        <div class="cartbtn">
+                            <i class="icon"><img src="assets/svg/cart.svg" alt="" /></i>
+                            <span *ngIf="updateCartInfo()" class="cart-item-number">{{cartProductsCount}}</span>
+                            <div class="cart-item-list">
+                                <div class="cart-item-list-inner">
+                                    <ol id="cart-sidebar" class="mini-products-list">
+                                        <li class="item last odd clearfix">
+                                            <a href="" class="product-image">
+                                                <img src="" /></a>
+                                            <div class="product-details">
+                                                <a href=""
+                                                    onclick="return confirm('Are you sure you would like to remove this item from the shopping cart?');"
+                                                    class="btn-remove">
+                                                    <i class="fa fa-times-circle"></i>
+                                                </a>
+                                                <a href="" title="Edit item" class="btn-edit">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>                                               
+                                                <p class="product-name">
+                                                    <a routerLink="profile">{{userName}}</a>
+                                                </p>
+                                                <strong>1</strong> x<span class="price">$624.00</span>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                    <div class="actions">
+                                        <a routerLink="karthistory" class="cart-link button" href="#"> Go to Cart </a>
+                                        <a class="button" (click)="checkOut()"> Checkout </a>
+                                        <a (click)="logout()" class="button"><span><span>Logout</span></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>

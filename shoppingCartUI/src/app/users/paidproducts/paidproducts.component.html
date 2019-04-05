@@ -1,0 +1,55 @@
+<div class="container">
+  <h2>User History</h2>
+  <p>Here we are showing all the Products either Paid or not Paid:-</p>        
+  <table class="table">
+    <thead>
+      <tr> 
+        <th>S.No</th>
+        <th>User Details</th>
+        <th>Product Details</th>
+        <th>Product Price</th>
+        <th>Paid Status</th>
+        <th>Action</th>
+      </tr>
+    </thead> 
+    <tbody>
+      <tr *ngFor="let productInfo of userProducts; let i=index;">
+        <!-- {{productInfo | json}}         -->
+        <td>{{i + 1}}</td>
+        <td>
+          <p>{{productInfo.createdBy[0].user_fname + productInfo.createdBy[0].user_lname}}</p>
+          <p>{{productInfo.createdBy[0].user_email}}</p>
+          <span>{{productInfo.created_on | date: format}}</span>
+        </td>
+        <td>
+            <p>{{productInfo.categoryData[0].name}}</p>
+            <p>{{productInfo.productData.name}}</p>
+            <span>{{productInfo.productData.description}}</span>
+        </td>
+        <td>
+          <p>
+              {{productInfo.no_of_product +' * '+productInfo.ratesData[0].amount}}
+          </p>          
+        </td>
+        <td>
+          <div *ngIf="productInfo.is_payment_done">
+              <p>Payment is Done</p>
+              <span>If you want to buy it again, then Please add to cart again!!</span>
+          </div>
+          <div *ngIf="!productInfo.is_payment_done">
+              <button>Pay Now</button>
+          </div>
+        </td>
+        <td>
+            <div *ngIf="productInfo.rattingInfo.length > 0;then ifcontent else elsecontent">here is ignored</div>    
+            <ng-template #ifcontent>
+              {{'No of Ratting Provided is '+productInfo.rattingInfo[0].rating}}
+            </ng-template>
+            <ng-template #elsecontent>
+                <a [routerLink]="['/rating',productInfo._id]">Do Rating</a>
+            </ng-template>            
+        </td>
+      </tr>      
+    </tbody>
+  </table>  
+</div>

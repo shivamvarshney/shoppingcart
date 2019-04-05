@@ -1,0 +1,146 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 mx-auto">
+            <div id="first">
+                <div class="myform form ">
+                    <div class="logo mb-3">
+                        <div class="col-md-12 text-center">
+                            <h1>Sign Up</h1>
+                        </div> 
+                    </div>
+                    <form [formGroup]="userSignupForm" (ngSubmit)="doSignup()">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">First Name</label>
+                            <input formControlName="user_fname" type="text" class="form-control" aria-describedby="emailHelp" placeholder="#Daniel">
+                            <div class="alert alert-danger" *ngIf="userSignupForm.controls['user_fname'].touched && !userSignupForm.controls['user_fname'].valid">
+                                <span *ngIf="userSignupForm.controls['user_fname'].hasError('required')">
+                                    {{firstNameRequiredValidation}}
+                                </span>
+                                <span *ngIf="userSignupForm.controls['user_fname'].hasError('minlength')">
+                                    {{firstNameMinLengthValidation}}
+                                </span>
+                                <span *ngIf="userSignupForm.controls['user_fname'].hasError('maxlength')">
+                                    {{firstNameMaxLengthValidation}}
+                                </span>                                  
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Last Name</label>
+                            <input formControlName="user_lname" type="text" class="form-control" aria-describedby="emailHelp" placeholder="#Nick">
+                            <div class="alert alert-danger" *ngIf="userSignupForm.controls['user_lname'].touched && !userSignupForm.controls['user_lname'].valid">
+                                <span *ngIf="userSignupForm.controls['user_lname'].hasError('required')">
+                                    {{lastNameRequiredValidation}}
+                                </span>
+                                <span *ngIf="userSignupForm.controls['user_lname'].hasError('minlength')">
+                                    {{lastNameMinLengthValidation}}
+                                </span>
+                                <span *ngIf="userSignupForm.controls['user_lname'].hasError('maxlength')">
+                                    {{lastNameMaxLengthValidation}}
+                                </span>                                  
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email Id</label>
+                            <input formControlName="user_email" type="text" class="form-control" aria-describedby="emailHelp" placeholder="nick@live.com">
+                            <div class="alert alert-danger" *ngIf="userSignupForm.controls['user_email'].touched && !userSignupForm.controls['user_email'].valid">
+                                <span *ngIf="userSignupForm.controls['user_email'].hasError('required')">
+                                    {{phonenoRequiredValidation}}
+                                </span>
+                                <span *ngIf="userSignupForm.controls['user_email'].hasError('pattern')">
+                                    {{phonenoPatternValidation}}
+                                </span>                                                                                               
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Mobile No</label>
+                            <input formControlName="user_phone" type="text" class="form-control" aria-describedby="emailHelp" placeholder="#9410803914">
+                            <div class="alert alert-danger" *ngIf="userSignupForm.controls['user_phone'].touched && !userSignupForm.controls['user_phone'].valid">
+                                <span *ngIf="userSignupForm.controls['user_phone'].hasError('required')">
+                                    {{phonenoRequiredValidation}}
+                                </span>
+                                <span *ngIf="userSignupForm.controls['user_phone'].hasError('pattern')">
+                                    {{phonenoPatternValidation}}
+                                </span>                                  
+                                <span *ngIf="userSignupForm.controls['user_phone'].hasError('minlength')">
+                                    {{phonenoMinLengthValidation}}
+                                </span>
+                                <span *ngIf="userSignupForm.controls['user_phone'].hasError('maxlength')">
+                                    {{phonenoMaxLengthValidation}}
+                                </span>                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Password</label>
+                            <input formControlName="user_password" type="password" class="form-control" aria-describedby="emailHelp" placeholder="SeaAsia!In@2Sk">
+                            <div class="alert alert-danger" *ngIf="userSignupForm.controls['user_password'].touched && !userSignupForm.controls['user_password'].valid">
+                                <span *ngIf="userSignupForm.controls['user_password'].hasError('required')">
+                                    {{passwordRequiredValidation}}
+                                </span>
+                                <span *ngIf="userSignupForm.controls['user_password'].hasError('pattern')">
+                                    {{passwordPatternValidation}}
+                                </span>                                  
+                                <span *ngIf="userSignupForm.controls['user_password'].hasError('minlength')">
+                                    {{passwordMinLengthValidation}}
+                                </span>
+                                <span *ngIf="userSignupForm.controls['user_password'].hasError('maxlength')">
+                                    {{passwordMaxLengthValidation}}
+                                </span>                                
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Confirm Password</label>
+                            <input formControlName="confirm_password" type="password" class="form-control" aria-describedby="emailHelp" placeholder="SeaAsia!In@2Sk">
+                            <div class="alert alert-danger" *ngIf="userSignupForm.controls['confirm_password'].touched && !userSignupForm.controls['confirm_password'].valid">
+                                <span *ngIf="userSignupForm.controls['confirm_password'].hasError('required')">
+                                    {{confirmPasswordRequiredValidation}}
+                                </span>
+                                <span *ngIf="userSignupForm.controls['confirm_password'].hasError('notMatch')">
+                                    {{confirmPasswordMatchValidation}}
+                                </span>                                                                                                 
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" formControlName="termsAndConditions">By signing up you accept our Terms Of Use
+                            <div class="alert alert-danger" *ngIf="userSignupForm.controls['termsAndConditions'].touched && !userSignupForm.controls['termsAndConditions'].valid">
+                                <span *ngIf="userSignupForm.controls['termsAndConditions'].hasError('required')">
+                                    {{confirmPasswordRequiredValidation}}
+                                </span>                                                                                                                              
+                            </div>
+                        </div>
+                        <div class="col-md-12 text-center ">
+                            <button [disabled]='userSignupForm.invalid' type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Sign Up</button>
+                        </div>
+                        <div class="col-md-12 ">
+                            <div class="login-or">
+                                <hr class="hr-or">
+                                <span class="span-or">or</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <p class="text-center">
+                                <a href="javascript:void();" class="google btn mybtn">
+                                    <i class="fa fa-google-plus">
+                                    </i> Signup using Google
+                                </a>
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-center">Do you have account?
+                                <a href="#" id="signup">Sign in here</a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="second">
+                <div class="myform form ">
+                    <div class="logo mb-3">
+                        <div class="col-md-12 text-center">
+                            <h1>Signup</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

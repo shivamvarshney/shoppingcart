@@ -1,0 +1,13 @@
+<form #rating="ngForm">
+  <label class="container"> Providing your rating for this Product:- </label>
+  <input type="radio" name="radiorating" value="1" [ngModel]="radiorating"> One<br>
+  <input type="radio" name="radiorating" value="2" [ngModel]="radiorating"> Two<br>
+  <input type="radio" name="radiorating" value="3" [ngModel]="radiorating"> Three<br>  
+  <input type="radio" name="radiorating" value="4" [ngModel]="radiorating"> Four<br>
+  <input type="radio" name="radiorating" value="5" [ngModel]="radiorating"> Five<br>  
+  <div>
+    <label class="container">Feedback:-</label>  
+    <input [ngModel]="feedback"  type="text" name="feedback" placeholder="Please enter your feedback ">
+  </div>
+  <button (click)="addRating(rating)" type="submit">Submit</button>
+</form>
