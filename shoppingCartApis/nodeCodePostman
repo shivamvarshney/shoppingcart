@@ -1,0 +1,282 @@
+{
+	"id": "c3c8a14a-a130-4e8f-9a68-19b5988a375b",
+	"name": "shoppingCart",
+	"description": null,
+	"auth": null,
+	"events": null,
+	"variables": [],
+	"order": [
+		"ffd918b3-a79d-43ab-bf6f-7727d906a304",
+		"81c95f3c-84da-4094-a7d3-7c5def3439ff",
+		"afe7d8e0-4973-4f43-9f00-a52408af3f79",
+		"0b3af12f-1c70-405e-8ea2-411d5a4ab8d7"
+	],
+	"folders_order": [],
+	"folders": [],
+	"requests": [
+		{
+			"id": "0b3af12f-1c70-405e-8ea2-411d5a4ab8d7",
+			"name": "AddProduct",
+			"url": "http://localhost:3000/addproduct",
+			"description": "",
+			"data": [
+				{
+					"key": "name",
+					"value": "Samsung Galaxy Pro1",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "description",
+					"value": "Samsung Galaxy Pro Description",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "amount",
+					"value": "50001",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "category",
+					"value": "5c782822faf2b9119c75000f",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "created_by",
+					"value": "5c78146644c99d121c05bd77",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/x-www-form-urlencoded"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2ZuYW1lIjoic2hpdmFtIiwidXNlcl9sbmFtZSI6InZhcnNobmV5IiwidXNlcl9lbWFpbCI6InNoaXZhbUB5bWFpbC5jb20iLCJpYXQiOjE1NTEzNzUxMzl9.eMMJmxCfOyKLAuucYGEjCwJVqvhrV5pEio6Ybh25ktM"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": null,
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "81c95f3c-84da-4094-a7d3-7c5def3439ff",
+			"name": "shoppingCartLogin",
+			"url": "http://localhost:3000/login",
+			"description": "",
+			"data": [
+				{
+					"key": "user_name",
+					"value": "ankur",
+					"description": "",
+					"type": "text",
+					"enabled": false
+				},
+				{
+					"key": "user_password",
+					"value": "123456",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "user_phone",
+					"value": "9478454662",
+					"description": "",
+					"type": "text",
+					"enabled": false
+				},
+				{
+					"key": "user_email",
+					"value": "shivam@ymail.com",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/x-www-form-urlencoded",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "afe7d8e0-4973-4f43-9f00-a52408af3f79",
+			"name": "AddProductCategory",
+			"url": "http://localhost:3000/addcategory",
+			"description": "",
+			"data": [
+				{
+					"key": "name",
+					"value": "Clothing",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "active",
+					"value": "",
+					"description": "",
+					"type": "text",
+					"enabled": false
+				},
+				{
+					"key": "created_by",
+					"value": "5c78146644c99d121c05bd77",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "created_on",
+					"value": "",
+					"description": "",
+					"type": "text",
+					"enabled": false
+				},
+				{
+					"key": "updated_on",
+					"value": "",
+					"description": "",
+					"type": "text",
+					"enabled": false
+				},
+				{
+					"key": "updated_by",
+					"value": "",
+					"description": "",
+					"type": "text",
+					"enabled": false
+				}
+			],
+			"dataMode": "urlencoded",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "",
+					"description": "",
+					"enabled": false
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/x-www-form-urlencoded"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2ZuYW1lIjoic2hpdmFtIiwidXNlcl9sbmFtZSI6InZhcnNobmV5IiwidXNlcl9lbWFpbCI6InNoaXZhbUB5bWFpbC5jb20iLCJpYXQiOjE1NTEzNzUxMzl9.eMMJmxCfOyKLAuucYGEjCwJVqvhrV5pEio6Ybh25ktM"
+					}
+				],
+				"type": "bearer"
+			},
+			"events": [],
+			"folder": null,
+			"headers": "//Authorization: \nContent-Type: application/x-www-form-urlencoded\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "ffd918b3-a79d-43ab-bf6f-7727d906a304",
+			"name": "RegisterUserOrAdmin",
+			"url": "http://localhost:3000/signup",
+			"description": "",
+			"data": [
+				{
+					"key": "user_fname",
+					"value": "shivam",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "user_phone",
+					"value": "9410803914",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "user_email",
+					"value": "shivam@ymail.com",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "user_password",
+					"value": "123456",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "user_lname",
+					"value": "varshney",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "user_role",
+					"value": "5c780920c544bc6507639736",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/x-www-form-urlencoded",
+					"description": ""
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"pathVariables": {}
+		}
+	]
+}
