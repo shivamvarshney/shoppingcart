@@ -13,3 +13,5 @@ You can connect to you cluster via the Command Line Tools. To see an example of 
 You may find the following articles helpful;
 Migrate your data into a new cluster
 Migrating your data with mongodump and mongorestore in Atlas
+
+mongodump --host localhost --port 27017 --db shoppingCart
