@@ -1,3 +1,42 @@
-<p>
-  categories works!
-</p>
+<a routerLink="/admin/addcategory" href="javascript:void(0)">Add a New Category</a>
+<div class="container">
+    <h2>All available Products</h2>
+    <p>Please add products into Cart:-</p>       
+    <table class="table">
+        <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Category Details</th>
+              <th>Products</th>
+              <th>Actions</th>              
+            </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let categoryInfo of categories; let i=index;">  
+                <!-- {{ categoryInfo | json}}                                                                              -->
+                  <td>{{i + 1}}</td>
+                  <td>
+                      <p>{{categoryInfo.name}}</p>                    
+                  </td>
+                  <td>
+                    <span title="" appTitleino [productDataDir] = "categoryInfo">
+                        {{categoryInfo.productData.length}}
+                    </span>
+                  </td>
+                  <td>
+                    <a href="javascript:void(0)" (click)="chengeType(categoryInfo.active,categoryInfo._id)">
+                      <span *ngIf="categoryInfo.active;then disableTemplate else enableTemplate"></span>
+                      <ng-template #disableTemplate>
+                        Disable
+                      </ng-template>
+                      <ng-template #enableTemplate>
+                        Enable
+                      </ng-template>
+                    </a>  
+                    <a href="javascript:void(0)" (click)="softDelete(categoryInfo._id)">Delete</a>                    
+                  </td>
+                          
+              </tr>
+          </tbody> 
+    </table>
+</div>

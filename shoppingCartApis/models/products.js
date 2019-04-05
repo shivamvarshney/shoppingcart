@@ -9,14 +9,14 @@ var UserSchema = new mongoose.Schema({
   category: [{ type: Schema.Types.ObjectId, ref:'categories' }],
   created_by: [{ type: Schema.Types.ObjectId, ref:'users' }],
   active: {
-	type: Boolean,
-	enum: [0, 1],
-	default:1
+    type: Boolean,
+    enum: [false, true],
+    default:true
   },
   productImage:String,
   is_delete:{
     type:Boolean,
-    default:0
+    default:false
   }
 }, {collection: 'products'});
 module.exports = mongoose.model('products', UserSchema);

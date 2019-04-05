@@ -32,6 +32,7 @@ import { RatingComponent } from './users/rating/rating.component';
 import { AuthoticityGuard } from './auth/authoticity.guard';
 import {FileUploadModule} from 'ng2-file-upload';
 import { ImageCropperModule } from 'ngx-image-cropper';
+// import { TitleinoDirective } from './common/directives/titleino.directive';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     ConfirmaddtocartDirective,
     AddproducttocartComponent,
     RatingComponent,
+    //TitleinoDirective,
   ],
   imports: [
     BrowserModule,

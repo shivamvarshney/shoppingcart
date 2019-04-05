@@ -4,7 +4,7 @@ import { LoginService } from '../../users/models/login.service';
 import { AppConstants } from '../../config/appConstants';
 import { appSettingFunctions } from '../../config/appStaticFunctions';
 import { Router } from '@angular/router';
-
+ 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class ProductsComponent implements OnInit {
 
   products:any;
+  productSoftStatus;
   constructor(private _loginService:LoginService,private router: Router) { 
 
   }
@@ -39,11 +40,8 @@ export class ProductsComponent implements OnInit {
     let productAaction = {product_id:productid,active_status:!actionType}
     this._loginService.adminChangeProductStatus(productAaction).subscribe(
       resp=>{
-        let enable = 'Enabled';
-        if(actionType){
-          enable = 'Disabled';
-        }
-        alert('Product has been '+ enable + ' successfully.');
+        this.productSoftStatus = resp;
+        alert(this.productSoftStatus.msg);
         this.getAllProducts();
       },
       err=>{

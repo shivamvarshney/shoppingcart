@@ -10,6 +10,7 @@ import { AddcategoryComponent } from './addcategory/addcategory.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { ProductsComponent } from './products/products.component';
 import { UsersComponent } from './users/users.component';
+import { TitleinoDirective } from '../common/directives/titleino.directive';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { UsersComponent } from './users/users.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [LoginComponent, SignupComponent, HomeComponent, AddproductComponent, AddcategoryComponent, CategoriesComponent, ProductsComponent, UsersComponent]
+  declarations: [TitleinoDirective,LoginComponent, SignupComponent, HomeComponent, AddproductComponent, AddcategoryComponent, CategoriesComponent, ProductsComponent, UsersComponent]
 })
 export class AdminModule { }

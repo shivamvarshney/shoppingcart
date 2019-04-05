@@ -75,8 +75,8 @@ export class LoginService {
     return this._httpClient.post(AppSettings.API_ENDPOINT+'/feedback',feedbackInfo);
   }
 
-  getallProductCategories(){
-    return this._httpClient.get(AppSettings.API_ENDPOINT+'/categories');
+  getallProductCategories(categoryData){
+    return this._httpClient.get(AppSettings.API_ENDPOINT+'/categories',categoryData);
   }
 
   addProductAdmin(objectData){
@@ -93,5 +93,21 @@ export class LoginService {
 
   adminDeleteProduct(adminProductInfo){
     return this._httpClient.post(AppSettings.API_ENDPOINT+'/productDeletion',adminProductInfo);
+  }
+
+  getallProductCategoriesWithProducts(categoryData){
+    return this._httpClient.post(AppSettings.API_ENDPOINT+'/categorieswithproducts',categoryData);
+  }
+
+  adminDeleteProductCategory(adminProductCategoryInfo){
+    return this._httpClient.post(AppSettings.API_ENDPOINT+'/productCategoryDeletion',adminProductCategoryInfo);
+  }
+
+  adminChangeProductCategoryStatus(adminProductCategoryInfo){
+    return this._httpClient.post(AppSettings.API_ENDPOINT+'/productCategoryActivation',adminProductCategoryInfo);
+  }
+
+  adminAddCategory(categoryInfo){
+    return this._httpClient.post(AppSettings.API_ENDPOINT+'/addcategory',categoryInfo)
   }
 }

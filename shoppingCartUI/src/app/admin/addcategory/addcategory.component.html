@@ -1,3 +1,21 @@
-<p>
-  addcategory works!
-</p>
+<form [formGroup]="addProductCategoryForm" (ngSubmit)="adproductCategorySubmit()">
+    <div class="form-group">
+        <label for="exampleInputEmail1">Product Category Name</label>
+        <input formControlName="pc_name" type="text" class="form-control" aria-describedby="emailHelp" placeholder="#Galaxy Note 10" required>
+        <div class="alert alert-danger" *ngIf="addProductCategoryForm.controls['pc_name'].touched && !addProductCategoryForm.controls['pc_name'].valid">
+            <span *ngIf="addProductCategoryForm.controls['pc_name'].hasError('required')">
+                Product Name is required
+            </span>
+            <span *ngIf="addProductCategoryForm.controls['pc_name'].hasError('minlength')">
+                Product Name length is minimum 5
+            </span>
+            <span *ngIf="addProductCategoryForm.controls['pc_name'].hasError('maxlength')">
+                Product Name length is maximum 50
+            </span>                                  
+        </div>        
+    </div>
+    <input type="hidden" formControlName="user_id">
+    <div>
+        <button [disabled]='addProductCategoryForm.invalid' type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Add Product</button>
+    </div>
+</form>

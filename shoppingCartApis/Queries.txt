@@ -1,0 +1,4 @@
+Update all the documents by adding a new field
+1) db.products.update({},{$set:{"is_delete":0}},false,true)
+
+2) 

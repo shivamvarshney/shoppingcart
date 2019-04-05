@@ -6,9 +6,13 @@ var CategoriesSchema = new mongoose.Schema({
   created_on: { type: Date, default: Date.now },
   created_by: [{ type: Schema.Types.ObjectId, ref:'users' }],
   active: {
-	type: Boolean,
-	enum: [0, 1],
-	default:1
+    type: Boolean,
+    enum: [false, true],
+    default:true
+  },
+  is_delete:{
+    type:Boolean,
+    default:false
   }
 }, {collection: 'categories'});
 module.exports = mongoose.model('categories', CategoriesSchema);

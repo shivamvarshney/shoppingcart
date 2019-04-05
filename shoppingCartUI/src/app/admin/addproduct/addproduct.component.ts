@@ -1,6 +1,7 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { Validators,FormControl,FormGroup } from '@angular/forms';
 import { AppConstants } from '../../config/appConstants';
+import { appSettingFunctions } from '../../config/appStaticFunctions';
 import { NumericvalueValidator } from '../../config/numericpatterncheck';
 import { LoginService } from '../../users/models/login.service'; 
 import {Router} from '@angular/router';
@@ -106,8 +107,10 @@ export class AddproductComponent implements OnInit {
     this.getAllProductCategories();
   }
 
-  getAllProductCategories(){
-    this._loginService.getallProductCategories().subscribe(
+  getAllProductCategories(){ 
+    let userEmail = appSettingFunctions.getLocalStorage('user_email');  
+    let categoriesData = {limit:20,offset:1,user_email:userEmail};
+    this._loginService.getallProductCategories(categoriesData).subscribe(
       resp=>{
         this.masterProductCategories = resp;        
       },

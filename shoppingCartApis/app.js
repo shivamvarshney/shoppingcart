@@ -57,40 +57,37 @@ var storage =   multer.diskStorage({
 });
 var upload = multer({ storage : storage}).single('fileUpload');
 // End of the code  of Image upload Code 
+
 // Routes with Callbacks
+
+// Route with Middleware
+//app.post('/addproduct',jsontokenvalidator,addproducts);
+// End user routes
 app.post('/login',login);
 app.post('/signup',signup);
-app.post('/addcategory',jsontokenvalidator,addcategory);
-//app.post('/addproduct',jsontokenvalidator,addproducts);
 app.post('/addproduct',addproducts);
 app.get('/products',jsontokenvalidator,getAllEnabledProducts);
-//app.post('/addProductToHistory',jsontokenvalidator,addProductToHistory);
 app.post('/addProductToHistory',addProductToHistory);
 app.post('/addProductRating',jsontokenvalidator,addProductRating);
-//app.post('/productPayment',jsontokenvalidator,productPayment);
 app.post('/productPayment',productPayment);
-//app.post('/getProductHistory',jsontokenvalidator,getProductHistory);
 app.post('/getProductHistory',getProductHistory);
-//app.post('/getProducts',jsontokenvalidator,getAllProducts);
 app.post('/getProducts',getAllProducts);
-//app.post('/getCartProducts',jsontokenvalidator,getCartProducts);
 app.post('/getCartProducts',getCartProducts);
-//app.post('/getUserPaidProducts',jsontokenvalidator,getUserPaidProducts);
 app.post('/getUserPaidProducts',getUserPaidProducts);
-//app.post('/bulkPayment',jsontokenvalidator,bulkPayment);
 app.post('/bulkPayment',bulkPayment);
-//app.post('/feedback',jsontokenvalidator,feedback);
 app.post('/feedback',feedback);
-//app.get('/categories',jsontokenvalidator,getCategories);
-app.get('/categories',getCategories);
-//app.post('/getProducts',jsontokenvalidator,getAllProducts);
-app.post('/getAdminProducts',getAllAdminProducts);
-//app.post('/productActivation',jsontokenvalidator,productActivation);
-app.post('/productActivation',productActivation);
-//app.post('/highrateditems',jsontokenvalidator,feedback);
-app.post('/productDeletion',productDeletion);
 app.post('/highrateditems',highrateditems);
+// Admin Routes
+app.get('/categories',getCategories);
+app.post('/categorieswithproducts',getAllCategoriesWithItsProducts);
+app.post('/addcategory',addcategory);
+app.post('/getAdminProducts',getAllAdminProducts);
+app.post('/productActivation',productActivation);
+app.post('/productDeletion',productDeletion);
+app.post('/productCategoryDeletion',productCategoryDeletion);
+app.post('/productCategoryActivation',productCategoryActivation);
 app.post('/upload',uploadFile);
+
 // Upload Image Code using Multer
 function uploadFile(req,res){	
 	upload(req,res,function(err) {
@@ -114,7 +111,7 @@ function getAllAdminProducts(req,resp){
      { $lookup: {from: "rates", localField: "_id", foreignField: "product_id", as: "ratesData"} },
      { $lookup: {from: "categories", localField: "category", foreignField: "_id", as: "categoryData"} },
      { $lookup: {from: "users", localField: "created_by", foreignField: "_id", as: "createdBy"} },
-	   { $match: { is_delete: 0 } },
+	   { $match: { 'is_delete': false } },
 		 { $sort : { 'created_on': -1 } }
 	],function (error, data) {
         if(!error){
@@ -176,10 +173,43 @@ app.post('/getProductsUsingAsync',async (req,resp)=>{
 
 	}
 });
+// Change the activation status of the product category also change the product status corrosponding to the product
+function productCategoryActivation(req,resp){
+	var category_id = req.body.category_id;
+	var activateState = req.body.active_status;
+	categories.findById(category_id,(err,categoryInfo)=>{
+		if(!err){
+				categoryInfo.active = activateState;
+				categoryInfo.save();		
+				let conditions = {'category': category_id};
+				let updateRecord  =  {'active': activateState};
+				var options = { multi: true }; 
+				products.update(conditions, updateRecord, options, function(err, numAffected) {
+					responseObj = {categoryData : categoryInfo,msg:'Product Category has been deleted successfully.'}
+					resp.status(200).send(responseObj);																						 
+				});								
+		}else{
+			resp.status(500).send('Unable to delete data');
+		}
+	});
+}
+// Callback function for categories with its all products
+function getAllCategoriesWithItsProducts(req,resp){
+	categories.aggregate([
+			{ $lookup: {from: "products", localField: "_id", foreignField: "category", as: "productData"} },
+			{ $match: { 'is_delete': false } },
+			{ $sort : { 'created_on': -1 } }
+ 	],function (error, data) {
+			if(!error){
+				resp.status(200).send(data);
+			}else{
+				resp.status(500).send('Something went wrong');
+			}
+	});
+}
 // Callback function for categories of the Products
 function getCategories(req,resp){
-	categories.find({'active':true},function(err,data){
-		//console.log(products);
+	categories.find({'active':true,'is_delete': false},function(err,data){
 		if (!err){
 			resp.status(200).send(data);
 		}else{
@@ -188,7 +218,6 @@ function getCategories(req,resp){
 	});
 }
 // End of the code related to async and await
-
 function dataProducts(params){
 	var limit = params.limit;
 	var offset = params.offset;
@@ -284,7 +313,6 @@ function getProductHistory(req,resp){
   var limit = req.body.limit;
 	var offset = req.body.offset;
 	var userEmail = req.body.user_email;
-	console.log('Shivam');
 	// Get the User Id from the token
 	//if(req.decodedToken != 'undefined' && req.decodedToken !=''){
 		//var userEmail = req.decodedToken.user_email;
@@ -293,7 +321,6 @@ function getProductHistory(req,resp){
 				resp.status(500).send('Authentication Problem');
 			}else{
 				var userId = userInfo[0]._id;	
-				console.log(userId);			
 				kart_history.aggregate([
 					{ $lookup: {from: "products", localField: "product_id", foreignField: "_id", as: "productData"} },
 					{ $unwind: {path: "$productData",preserveNullAndEmptyArrays: true } }, 
@@ -320,7 +347,6 @@ function getUserPaidProducts(req,resp){
   var limit = req.body.limit;
 	var offset = req.body.offset;
 	var userEmail = req.body.user_email;
-	console.log('Shivam');
 	// Get the User Id from the token
 	//if(req.decodedToken != 'undefined' && req.decodedToken !=''){
 		//var userEmail = req.decodedToken.user_email;
@@ -329,7 +355,6 @@ function getUserPaidProducts(req,resp){
 				resp.status(500).send('Authentication Problem');
 			}else{
 				var userId = userInfo[0]._id;	
-				console.log(userId);			
 				kart_history.aggregate([
 					{ $lookup: {from: "products", localField: "product_id", foreignField: "_id", as: "productData"} },
 					{ $unwind: { path: "$productData",preserveNullAndEmptyArrays: true } }, 
@@ -356,7 +381,6 @@ function getCartProducts(req,resp){
   var limit = req.body.limit;
 	var offset = req.body.offset;
 	var userEmail = req.body.user_email;
-	console.log('Shivam');
 	// Get the User Id from the token
 	//if(req.decodedToken != 'undefined' && req.decodedToken !=''){
 		//var userEmail = req.decodedToken.user_email;
@@ -365,7 +389,6 @@ function getCartProducts(req,resp){
 				resp.status(500).send('Authentication Problem');
 			}else{
 				var userId = userInfo[0]._id;	
-				console.log(userId);			
 				kart_history.aggregate([
 					{ $lookup: {from: "products", localField: "product_id", foreignField: "_id", as: "productData"} },
 					{ $unwind: { path: "$productData",preserveNullAndEmptyArrays: true } }, 
@@ -409,32 +432,60 @@ function productActivation(req,resp){
    var activateState = req.body.active_status;
 	 var product_id = req.body.product_id;
 	 products.findById(product_id,(err,productInfo)=>{
-	  if(!err){				
-			var enabled = 'disabled';
-			if(activateState == false || activateState == 'false'){
-				productInfo.active = 0;
-			}else{
-				productInfo.active = 1;
-				enabled = 'enabled';
-			}
-			productInfo.save();
-			responseObj = {productData : productInfo,msg:'Product has been '+ enabled + ' successfully.'}
-			resp.status(200).send(responseObj);
+	  if(!err){					
+			categories.findById(productInfo.category,(err,categoryInfo)=>{
+				if(err){
+					resp.status(500).send('Unable to save data');
+				}else{
+					if(categoryInfo.active){
+							var enabled = 'disabled';
+							if(activateState == false || activateState == 'false'){
+								productInfo.active = false;
+							}else{
+								productInfo.active = true;
+								enabled = 'enabled';
+							}
+							productInfo.save();
+							responseObj = {productData : productInfo,msg:'Product has been '+ enabled + ' successfully.'}
+							resp.status(200).send(responseObj);
+					}else{
+						responseObj = {productData : productInfo,msg:'Product Category is disabled. To enable this product please enable the category of this product.'}
+						resp.status(200).send(responseObj);
+					}
+				}
+			});
 	  }else{
 			resp.status(500).send('Unable to save data');
 	  }
    });
 }
+// Soft deletion of category and its product
+function productCategoryDeletion(req,resp){
+	var category_id = req.body.category_id;
+	categories.findById(category_id,(err,categoryInfo)=>{
+		if(!err){				
+				categoryInfo.is_delete = true;
+				categoryInfo.save();				
+				let conditions = {'category': category_id};
+				let updateRecord  =  {'is_delete': true};
+				var options = { multi: true }; 
+				products.update(conditions, updateRecord, options, function(err, numAffected) {
+					responseObj = {categoryData : categoryInfo,msg:'Product Category has been deleted successfully.'}
+					resp.status(200).send(responseObj);																						 
+				});								
+		}else{
+			resp.status(500).send('Unable to delete data');
+		}
+	});
+}
 // Soft delete Product by the Admin
 function productDeletion(req,resp){
-	console.log('Shivam');
 	var product_id = req.body.product_id;
 	products.findById(product_id,(err,productInfo)=>{
 	 if(!err){				
-		 productInfo.is_delete = 1;
+		 productInfo.is_delete = true;
 		 productInfo.save();
 		 responseObj = {productData : productInfo,msg:'Product has been deleted successfully.'}
-		 console.log(responseObj);
 		 resp.status(200).send(responseObj);
 	 }else{
 		 resp.status(500).send('Unable to save data');
@@ -444,10 +495,8 @@ function productDeletion(req,resp){
 // While doing payment successful, we are removing that product from user kart to user history
 function productPayment(req,resp){
 	var userProductKartId = req.body.kart_id;
-	//console.log(userProductKartId);
 	kart_history.findById(userProductKartId, (err, userKartInfo) => {
 		if(!err) {
-			//console.log(userKartInfo);			
 			userKartInfo.is_payment_done = 1;
 			userKartInfo.save();
 			resp.status(200).send(userKartInfo);
@@ -476,7 +525,6 @@ function bulkPayment(req,resp){
 // After doing payment successful, user can provide their feedback corresponding to the product
 function addProductRating(req,resp){
 	var product_ratting_data = new product_ratting(req.body);
-	//console.log(req.body);
 	product_ratting_data.save().then(product_ratting_data=>{
 		resp.send(product_ratting_data);
 	}).catch(err=> {
@@ -486,7 +534,6 @@ function addProductRating(req,resp){
 // User can add the product into its kart
 function addProductToHistory(req,resp){
 	var kartdata = new kart_history(req.body);
-	console.log(req.body);
 	kartdata.save().then(kartdata=>{
 		resp.send(kartdata);
 	}).catch(err=> {
@@ -496,7 +543,6 @@ function addProductToHistory(req,resp){
 // Show all enabled products list to the end-user
 function getAllEnabledProducts(){
 	  Product.find(function (err, products) {
-    //console.log(products);
     if (!err){
 	  	res.send(products)  
 		} 
@@ -505,7 +551,6 @@ function getAllEnabledProducts(){
 // Add Category Callback function
 function addcategory(req,resp){
 	var categorydata = new categories(req.body);
-	console.log(req.body);
 	categorydata.save().then(category=>{
 		resp.send(category);
 	}).catch(err=> {
@@ -569,7 +614,6 @@ function signup(req,resp){
 // JWT token validating
 function jsontokenvalidator(req,resp,next){
 	var checkofnofound = true;
-	console.log(req.headers);
 	if(typeof req.headers.authorization != 'undefined'){
 		var bareerToken = req.headers.authorization;
 		var splitedData = bareerToken.split(' ');
