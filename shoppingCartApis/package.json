@@ -4,7 +4,10 @@
   "description": "This application belongs to online shopping cart",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app",
+  },
+  "engines": {
+    "node": "8.9.1"
   },
   "keywords": [
     "Shopping",
